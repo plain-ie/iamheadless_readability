@@ -1,4 +1,8 @@
+import nltk
 from django.apps import AppConfig
+
+
+nltk.download('cmudict')
 
 
 class IamheadlessReadabilityConfig(AppConfig):

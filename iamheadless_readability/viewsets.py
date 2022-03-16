@@ -1,42 +1,31 @@
 import json
 
+from django.core.exceptions import SuspiciousOperation
 from django.shortcuts import HttpResponse
+from django.utils.decorators import method_decorator
 from django.views import views
 
-from .conf import settings
-from . import fleish
+from iamheadless_publisher_admin import decorators
+
+from . import analyze
 
 
 class ReadabilityViewSet(View):
 
+    @method_decorator(decorators.login_required(), name='dispatch')
     def get(self, request):
 
-        text = ''
-        score_format = 'reading_score'
-        score = 0
+        request_body = json.loads(request.body.decode('utf-8'))
 
-        allowed_score_format = [
-            'ease',
-            'reading_score',
-            'grade_levels'
-        ]
+        text = request_body.get('text', None)
 
-        if score_format == 'ease':
-            score = fleish.ease(text)
+        if text is None:
+            raise SuspiciousOperation('Payload is missing "text"')
 
-        elif score_format == 'grade_levels':
-            score = fleish.grade_levels(text)
-
-        else score_format == 'reading_score':
-            score = fleish.reading_score(text)
-
-        response_data = {
-            'text': text,
-            'score': score,
-        }
+        data = analyzer.analyze(text)
 
         return HttpResponse(
-            json.dumps(response_data),
+            json.dumps(data),
             status=200,
             content_type='application/json'
         )
