@@ -7,7 +7,7 @@ from django.views import View
 
 from iamheadless_publisher_admin import decorators
 
-from . import analyze
+from . import analyzer
 
 
 class ReadabilityViewSet(View):
