@@ -3,7 +3,7 @@ import json
 from django.core.exceptions import SuspiciousOperation
 from django.shortcuts import HttpResponse
 from django.utils.decorators import method_decorator
-from django.views import views
+from django.views import View
 
 from iamheadless_publisher_admin import decorators
 
