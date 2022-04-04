@@ -29,9 +29,7 @@ setup(
 
     # Dependent packages (distributions)
     install_requires=[
-        "django>=4.0.2",
         "nltk==3.7",
-        "py-readability-metrics==1.4.5",
     ],
 
 )
