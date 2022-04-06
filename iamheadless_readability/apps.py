@@ -3,6 +3,7 @@ from django.apps import AppConfig
 
 
 nltk.download('cmudict')
+nltk.download('punkt')
 
 
 class IamheadlessReadabilityConfig(AppConfig):
